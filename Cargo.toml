@@ -1,0 +1,46 @@
+[package]
+name = "airplay"
+version = "1.0.0"
+edition = "2021"
+description = "AirPlay music player (Windows only, single exe)"
+publish = false
+license = "MIT"
+
+[[bin]]
+name = "AirPlay"
+path = "src/main.rs"
+
+[dependencies]
+cpal = "0.15"
+encoding_rs = "0.8"
+image = { version = "0.25", default-features = false, features = ["jpeg", "png", "gif", "bmp"] }
+lofty = "0.22"
+rustfft = "6"
+symphonia = { version = "0.5", features = ["aac", "alac", "flac", "isomp4", "mp3", "ogg", "pcm", "vorbis", "wav"] }
+ureq = { version = "2.12", default-features = false, features = ["tls"] }
+windows = { version = "0.58", features = [
+    "Win32_Foundation",
+    "Win32_Graphics_Dwm",
+    "Win32_Graphics_Gdi",
+    "Win32_Security",
+    "Win32_System_Com",
+    "Win32_System_DataExchange",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Memory",
+    "Win32_System_Ole",
+    "Win32_System_SystemServices",
+    "Win32_System_Threading",
+    "Win32_UI_Controls",
+    "Win32_UI_Controls_Dialogs",
+    "Win32_UI_HiDpi",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_Shell",
+    "Win32_UI_Shell_Common",
+    "Win32_UI_WindowsAndMessaging",
+] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
+opt-level = 3
